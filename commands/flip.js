@@ -62,7 +62,7 @@ module.exports = {
 			);
 			
 			setTimeout(() => {
-				const result = randomInt(0, 1);
+				const result = randomInt(0, 2);
 				
 				if((args[1].toLowerCase() === "heads" && result === 0) ||
 				   (args[1].toLowerCase() === "tails" && result === 1)) {
