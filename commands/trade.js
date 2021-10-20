@@ -75,21 +75,26 @@ module.exports = {
 				completed: false
 			});
 			
-			message.author.client.users.cache.get(otherID).send(
-				"You have been offered: **" + args[1] + " $RAT** in exchange for **" + 
-				args[2] + " $RAT** by " + profileData.user + ".\n" + 
-				"This would bring your balance to: **" + 
-				(+otherData.rat - +args[2] + +args[1]) + 
-				" $RAT**, while bringing " + profileData.user + 
-				"'s balance to: **" + (+profileData.rat - +args[1] + +args[2]) + 
-				" $RAT**.\n" + "This offer expires in **3 minutes.**\n" + 
-				"To accept this trade, respond with **" +
-				"$$accept " + tradeID + "** in the server.\n" +
-				"Here is the accept response again for easy copy-pasting: "
-			);
-			message.author.client.users.cache.get(otherID).send(
-				"$$accept " + tradeID
-			);
+			try {
+				message.author.client.users.cache.get(otherID).send(
+					"You have been offered: **" + args[1] + " $RAT** in exchange for **" + 
+					args[2] + " $RAT** by " + profileData.user + ".\n" + 
+					"This would bring your balance to: **" + 
+					(+otherData.rat - +args[2] + +args[1]) + 
+					" $RAT**, while bringing " + profileData.user + 
+					"'s balance to: **" + (+profileData.rat - +args[1] + +args[2]) + 
+					" $RAT**.\n" + "This offer expires in **3 minutes.**\n" + 
+					"To accept this trade, respond with **" +
+					"$$accept " + tradeID + "** in the server.\n" +
+					"Here is the accept response again for easy copy-pasting: "
+				);
+				message.author.client.users.cache.get(otherID).send(
+					"$$accept " + tradeID
+				);
+			} catch(err) {
+				console.log(err);
+				return message.channel.send("Cannot send trade request due to an error.");
+			}
 			
 			return message.channel.send("Trade request sent.");
 		}
