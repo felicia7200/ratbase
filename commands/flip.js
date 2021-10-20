@@ -69,7 +69,7 @@ module.exports = {
 					
 					message.channel.send(
 						"**" + args[1].toUpperCase() + "**! You win **" +
-						(+args[0] * 2) + " $RAT**!\nCongratulations!"
+						(+args[0] * 2) + " $RAT**!\nCong**RAT**ulations!"
 					);
 					
 					profileData.rat += +args[0];
