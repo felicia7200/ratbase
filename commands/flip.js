@@ -77,9 +77,11 @@ module.exports = {
 					const face = (args[1].toLowerCase() === "heads") ? "Tails" : "Heads";
 					
 					message.channel.send(
-						"**" + face + "...\n" +
+						"**" + face + "**...\n" +
 						"You lost **" + args[0] + " $RAT**, better luck next time."
 					);
+					
+					profileData.rat -= +args[0];
 				}
 				profileData.save();
 			}, 1000);
