@@ -11,7 +11,7 @@ module.exports = {
 			"To trade **$RAT** with another user, use the command **$$trade**.\n\n" + 
 			//"To purchase **$RAT** when available, use the command **$$buy**.\n\n" +
 			"To gamble **$RAT** on a coin flip, use the command **$$flip**.\n\n" +
-			"Thank you for using **RATBASE:tm:**."
+			"Thank you for using **RATBASE:tm:**!"
 		);
 	}
 };
