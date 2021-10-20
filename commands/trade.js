@@ -94,7 +94,7 @@ module.exports = {
 				"**$$accept " + tradeID + "**"
 			).catch((err) => {
 				console.log(err);
-				return message.channel.send("Cannot send trade request due to an error.");
+				return;
 			});
 			
 			return message.channel.send("Trade request sent.");
