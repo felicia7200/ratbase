@@ -2,6 +2,10 @@
   "name": "ratbase",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+	  "node": "16.x",
+	  "npm": "7.x"
+  },
   "main": "index.js",
   "scripts": {
     "nodemon": "nodemon --watch index.js",
