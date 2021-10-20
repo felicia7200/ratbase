@@ -10,5 +10,5 @@ module.exports = (client, Discord) => {
 			client.on(evName, (...args) => ev.execute(...args));
 		}
 	};
-	['client', 'guild'].forEach(e => loadDir(e));
+	['client'].forEach(e => loadDir(e));
 };
