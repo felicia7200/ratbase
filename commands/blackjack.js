@@ -33,6 +33,9 @@ module.exports = {
 			);
 		}
 		
+		return message.channel.send("Under construction! Check back later!");
+		// remove this return for testing
+		
 		let deckData;
 		try { deckData = await deckModel.findOne({ userID: profileData.userID }); }
 		catch (err) { console.log(err); }
