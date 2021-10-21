@@ -11,6 +11,7 @@ module.exports = {
 		try { tradeData = await tradeModel.findOne({ _id: tradeID }); } 
 		catch (err) { console.log(err); }
 		
+		//{ ERROR HANDLING
 		if(!tradeData) {
 			return message.channel.send(
 				"This trade does not exist. It has either expired, or never existed in the first place."
@@ -28,10 +29,19 @@ module.exports = {
 				"Only the user who was offered the trade can accept it."
 			);
 		}
+		//}
 		
+		// get data of user1
 		let otherData;
 		try { otherData = await profileModel.findOne({ userID: tradeData.user1 }); } 
 		catch (err) { console.log(err); }
+		
+		// in case a user loses enough that they can't go through with the trade
+		if(((otherData.rat - tradeData.amt1) < 0) || ((profileData.rat - tradeData.amt2) < 0)) {
+			return message.channel.send(
+				"At least one participant in this trade has insufficient funds. The trade will not go through."
+			);
+		}
 		
 		otherData.rat = otherData.rat - tradeData.amt1 + tradeData.amt2;
 		profileData.rat = profileData.rat - tradeData.amt2 + tradeData.amt1;
