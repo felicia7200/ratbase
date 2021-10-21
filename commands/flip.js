@@ -3,7 +3,7 @@ let randomInt = (min, max) => { return Math.floor(Math.random() * max) + min; };
 module.exports = {
 	name: 'flip',
 	description: 'Gamble away all your $RAT on the flip of a coin.',
-	cooldown: 10,
+	cooldown: 4,
 	execute(message, args, profileData){
 		
 		//{ ERROR HANDLING
