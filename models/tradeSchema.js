@@ -6,7 +6,11 @@ const tradeSchema = new mongoose.Schema({
 	amt1: { type: Number, require: true },
 	amt2: { type: Number, require: true },
 	completed: { type: Boolean, default: false, require: true },
-	expireAt: { type: Date, default: Date.now, index: { expireAfterSeconds: 180 } }
+	expireAt: { 
+		type: Date, 
+		default: Date.now() + 3 * 60 * 1000, 
+		expires: 0
+	}
 });
 
 module.exports = model = mongoose.model("Trade", tradeSchema);;

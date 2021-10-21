@@ -72,7 +72,8 @@ module.exports = {
 				user2: otherData.userID,
 				amt1: +args[1],
 				amt2: +args[2],
-				completed: false
+				completed: false,
+				expireAt: Date.now() + 3 * 60 * 1000
 			});
 			
 			message.author.client.users.cache.get(otherID).send(
