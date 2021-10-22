@@ -45,13 +45,13 @@ module.exports = {
                         docs[0].rat += toDistribute * 3;
                         docs[0].save();
                         
-                        message.channel.send(`${docs[1].user.split('#')[1]} is recieving ${toDistribute * 2} **$RAT**`);
+                       message.channel.send(`${docs[1].user.split('#')[0]} is recieving ${toDistribute * 2} **$RAT**`);
                         docs[1].rat += toDistribute * 2;
                         docs[1].save();
                         
-                        message.channel.send(`${docs[2].user.split('#')[2]} is recieving ${toDistribute * 1} **$RAT**`);
-                        docs[2].rat += toDistribute * 1;
-                        docs[2].save();
+                        message.channel.send(`${docs[2].user.split('#')[0]} is recieving ${toDistribute * 1} **$RAT**`);
+                       docs[2].rat += toDistribute * 1;
+                       docs[2].save();
                     });
                     
                     profileData.rat = 1;
