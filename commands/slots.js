@@ -25,7 +25,9 @@ module.exports = {
         
         profileData.rat -= betAmount;
 		
-        let slotState = [5,5,5];
+		// default slot state is triple skull
+        let slotState = [0, 0, 0];
+		
         // inside a command, event listener, etc.
         const e = new MessageEmbed()
             .setColor(message.member.displayHexColor)
