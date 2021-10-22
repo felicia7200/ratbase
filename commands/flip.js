@@ -18,6 +18,13 @@ module.exports = {
 			);
 		}
 		
+        if(!args[1]){
+            message.channel.send(
+				"Default bet is heads, since you didn't pick."
+			);
+            args[1] = "heads";
+        }
+        
 		if(args.length > 2 || args.length < 2) {
 			return message.channel.send(
 				"Incorrect number of arguments. If you need help, please use **$$flip help**."
@@ -69,19 +76,19 @@ module.exports = {
 					
 					message.channel.send(
 						"**" + args[1].toUpperCase() + "**! You win **" +
-						(+args[0] * 2) + " $RAT**!\nCong**RAT**ulations!"
+						(+args[0] * 2) + " $RAT**!\nCong**RAT**ulations! Your new balance is **" + (profileData.rat += +args[0]) + " $RAT **!"
 					);
 					
-					profileData.rat += +args[0];
+					
 				} else {
 					const face = (args[1].toLowerCase() === "heads") ? "Tails" : "Heads";
 					
 					message.channel.send(
 						"**" + face + "**...\n" +
-						"You lost **" + args[0] + " $RAT**, better luck next time."
+						"You lost **" + args[0] + " $RAT**, better luck next time. Your new balance is **" + (profileData.rat -= +args[0]) + " $RAT **!"
 					);
 					
-					profileData.rat -= +args[0];
+					
 				}
 				profileData.save();
 			}, 1000);
