@@ -12,9 +12,10 @@ module.exports = {
 		
 		if(!args[0] || args[0].toLowerCase() === "help") {
 			return message.channel.send(
-				"Use this command to gamble $RAT on a coin flip.\n" + 
+				"Use this command to gamble **$RAT** on a coin flip.\n" + 
 				"If you guess correctly, you win 2x your original bet.\n" + 
-				"Syntax: **$$flip [amount to gamble] [heads or tails]**"
+				"Syntax: **$$flip [amount to gamble] [heads or tails]**\n\n" +
+				"If you do not specify heads or tails, it will assume **heads**."
 			);
 		}
 		

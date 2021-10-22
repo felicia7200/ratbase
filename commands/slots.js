@@ -1,4 +1,3 @@
-        
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
@@ -7,14 +6,24 @@ module.exports = {
 	description: 'Use a totally fake slot machine.',
     cooldown: 10,
 	execute(message, args, profileData){
+		const betAmount = (+args[0] > 0) ? +args[0] : 25;
+		
 		if(!profileData)
 			return message.channel.send("You do not have an account with RATBASE:tm:.");
-        
-		let betAmount = 25;
+
         if(profileData.rat < betAmount)
-			return message.channel.send("Your **$RAT** balance is not high enough to play slots");
+			return message.channel.send("Your **$RAT** balance is not high enough to play slots.");
+		
+		if(args[0] === "?" || args[0] === "help") {
+			return message.channel.send(
+				"Use this command to gamble **$$RAT** on a slot machine.\n" +
+				"Syntax: **$$slots [amount to gamble]**\n\n" + 
+				"If you do not specify an amount, it will assume **25 $RAT**."
+			);
+		}
         
         profileData.rat -= betAmount;
+		
         let slotState = [5,5,5];
         // inside a command, event listener, etc.
         const e = new MessageEmbed()
@@ -22,29 +31,31 @@ module.exports = {
             .setTitle(message.member.displayName + ' is playing slots!')
             .setDescription(''+slotStateToString(slotState));
 
-        
-        
-        
-        
+		message.channel.send("Betting **" + betAmount + " $RAT** on the slots...");
+
         // make them wait for it lol
 		setTimeout(() => {
 			message.channel.send({ embeds: [e] })
-            .then((msg)=> {
-            for(let i = 0; i < 4; i++){ //number of slot updates to do
-                slotState = updateSlotState(slotState); //update the slots
-                    const eEdit = new MessageEmbed()
-                    .setColor(message.member.displayHexColor)
-                    .setTitle(message.member.displayName + ' is playing slots!')
-                    .setDescription(''+slotStateToString(slotState));
-                    msg.edit({ embeds: [eEdit] });
-            }              
+				.then((msg)=> {
+				for(let i = 0; i < 4; i++){ //number of slot updates to do
+					slotState = updateSlotState(slotState); //update the slots
+						const eEdit = new MessageEmbed()
+							.setColor(message.member.displayHexColor)
+							.setTitle(message.member.displayName + ' is playing slots!')
+							.setDescription(''+slotStateToString(slotState));
+							
+						msg.edit({ embeds: [eEdit] });
+				}              
             });
 			setTimeout(() => {
-				let prize = calculatePrize(betAmount, slotState);
-                //calculate prize
-                message.channel.send("You win **"+prize+" $RAT**!!!");
+				const prize = calculatePrize(betAmount, slotState);
                 profileData.rat += prize;
                 profileData.save();
+				
+				return message.channel.send(
+					"You win **" + prize + " $RAT**!\n" + 
+					"Your new balance is **" + profileData.rat + " $RAT**!"
+				);
 			}, 1250);
             
 		}, 100);
@@ -72,8 +83,8 @@ function slotStateToString(state){
 }
 
 function updateSlotState(state){
-    for(let i = 0; i < 3; i++){
-        state[i] = randomInt(0,reelValues.length);
+    for(let i = 0; i < state.length; i++){
+        state[i] = randomInt(0, reelValues.length);
     }
     return state;
 }
@@ -114,16 +125,16 @@ function calculatePrize(bet, state){
                 return 0;
                 break;
             case 1: //lemon
-                prize-=5;
+                prize -= 5;
                 break;
             case 2: //cherries
-                prize-=1;
+                prize -= 1;
                 break;
             case 3: //cheese
-                prize +=1;
+                prize += 1;
                 break;
             case 4://crown
-                prize+=5;
+                prize += 5;
                 break;
             case 5: //rat
                 modifier += 0.2;
