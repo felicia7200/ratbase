@@ -76,7 +76,8 @@ module.exports = {
 					
 					message.channel.send(
 						"**" + args[1].toUpperCase() + "**! You win **" +
-						(+args[0] * 2) + " $RAT**!\nCong**RAT**ulations! Your new balance is **" + (profileData.rat += +args[0]) + " $RAT **!"
+						(+args[0] * 2) + " $RAT**!\nCong**RAT**ulations!\n" + 
+						"Your new balance is **" + (profileData.rat += +args[0]) + " $RAT **!"
 					);
 					
 					
@@ -85,7 +86,8 @@ module.exports = {
 					
 					message.channel.send(
 						"**" + face + "**...\n" +
-						"You lost **" + args[0] + " $RAT**, better luck next time. Your new balance is **" + (profileData.rat -= +args[0]) + " $RAT **!"
+						"You lost **" + args[0] + " $RAT**, better luck next time.\n" +
+						"Your new balance is **" + (profileData.rat -= +args[0]) + " $RAT**!"
 					);
 					
 					
