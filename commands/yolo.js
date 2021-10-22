@@ -12,7 +12,8 @@ module.exports = {
         
         const e = new MessageEmbed()
             .setColor(message.member.displayHexColor)
-            .setTitle(message.member.displayName + ' is putting it all on the line!');
+            .setTitle(message.member.displayName + ' is putting it all on the line! (rest of command not implementedz)');
+        return message.channel.send({ embeds: [e] });
 		setTimeout(() => {
 			message.channel.send({ embeds: [e] })
 				.then((msg)=> {
@@ -39,7 +40,6 @@ module.exports = {
                     
                     let toDistribute = Math.floor(profileData.rat / 6);
                     
-                    
                     profileModel.find({}).sort({ rat: 1 }).exec((err, docs) => {
 			             message.channel.send(`${docs[0].user.split('#')[0]} is recieving ${toDistribute * 3} **$RAT** in redistributed wealth!`);
                         docs[0].rat += toDistribute * 3;
@@ -49,19 +49,20 @@ module.exports = {
                         docs[1].rat += toDistribute * 2;
                         docs[1].save();
                         
-                       message.channel.send(`${docs[2].user.split('#')[0]} is recieving ${toDistribute * 1} **$RAT** in redistributed wealth!`);
-                       docs[2].rat += toDistribute * 1;
-                      docs[2].save();
+                       //message.channel.send(`${docs[2].user.split('#')[0]} is recieving ${toDistribute * 1} **$RAT** in redistributed wealth!`);
+                       //docs[2].rat += toDistribute * 1;
+                      //docs[2].save();
                     });
-                    
                     profileData.rat = 1;
                     profileData.save();
+                    
                 }
                         
             });
 			
             
 		}, 500);
+        
 	}
 };
 
