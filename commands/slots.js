@@ -44,11 +44,13 @@ module.exports = {
                 //calculate prize
                 message.channel.send("You win **"+prize+" $RAT**!!!");
                 profileData.rat += prize;
+                profileData.save();
 			}, 1250);
-            profileData.save();
+            
 		}, 100);
         //uncomment to get max, min, mean slots prizes for the bet you put in
         //calculatePrizeStats(betAmount);
+        
 	}
     
 };
