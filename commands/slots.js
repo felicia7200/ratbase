@@ -25,8 +25,8 @@ module.exports = {
         
         profileData.rat -= betAmount;
 		
-		// default slot state is triple skull
-        let slotState = [0, 0, 0];
+		// default slot state is skull, rat, skull
+        let slotState = [3, 5, 3];
 		
         // inside a command, event listener, etc.
         const e = new MessageEmbed()
@@ -40,7 +40,7 @@ module.exports = {
 		setTimeout(() => {
 			message.channel.send({ embeds: [e] })
 				.then((msg)=> {
-				for(let i = 0; i < 4; i++){ //number of slot updates to do
+				for(let i = 0; i < 3; i++){ //number of slot updates to do
 					slotState = updateSlotState(slotState); //update the slots
 						const eEdit = new MessageEmbed()
 							.setColor(message.member.displayHexColor)

@@ -4,6 +4,7 @@ const dotenv = (process.env.NODE_ENV !== 'prod') ? require('dotenv') : null;
 if (dotenv !== null) dotenv.config();
 
 const cooldowns = new Map();
+const noArgCmds = ['balance', 'leaderboard', 'start', 'tax'];
 
 module.exports = { 
 	name: 'messageCreate',
@@ -27,7 +28,7 @@ module.exports = {
 		const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd));
 		
 		// check for cooldown and apply that if necessary
-		if(command && command.cooldown && !args.includes("help") && args.length != 0) {
+		if(command && command.cooldown && !args.includes("help") && (args[0] != null || noArgCmds.includes(command.name))) {
 			if(!cooldowns.has(command.name)) {
 				cooldowns.set(command.name, new Map());
 			}
