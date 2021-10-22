@@ -55,10 +55,14 @@ module.exports = {
                 profileData.rat += prize;
                 profileData.save();
 				
-				return message.channel.send(
-					"You win **" + prize + " $RAT**!\n" + 
-					"Your new balance is **" + profileData.rat + " $RAT**!"
-				);
+				if(prize >= 0) {
+					return message.channel.send(
+						"You win **" + prize + " $RAT**!\n" + 
+						"Your new balance is **" + profileData.rat + " $RAT**!"
+					);
+				} else {
+					deviousRat(message, profileData);
+				}
 			}, 1250);
             
 		}, 100);
@@ -75,13 +79,13 @@ let randomInt = (min, max) => { return Math.floor(Math.random() * max) + min; };
 
 //this is basically useless now but im lazy
 function getIndexedReelVal(i){
-    if(+i < 0) i = reelValues.length - 1;
-    if(+i > reelValues.length - 1) i = 0;
-    return reelValues[+i];
+    if(i < 0) i = reelValues.length - 1;
+    if(i > reelValues.length - 1) i = 0;
+    return reelValues[i];
 }
 
 function slotStateToString(state){
-    let slotString = " | " + getIndexedReelVal(state[0]) + " | " + getIndexedReelVal(state[1]) + " | " + getIndexedReelVal(state[2]) + " | ";
+    let slotString = " | " + getIndexedReelVal(+state[0]) + " | " + getIndexedReelVal(+state[1]) + " | " + getIndexedReelVal(+state[2]) + " | ";
     return slotString;
 }
 
@@ -122,8 +126,13 @@ function calculatePrize(bet, state, pd){
 	
 	// if triple, big modifier
     if((state[0] == state[1]) && (state[1] == state[2])){
-        modifier = (state[0] != 1) ? state[0] : 1.5; 
-        return prize * modifier;
+		// if triple skulls steal money from player
+		if(state[0] == 0) {
+			return (pd.rat / 2) * -1;
+		} else {
+			modifier = (state[0] != 1) ? state[0] : 1.5; 
+			return prize * modifier;
+		}
     }
     for(let i = 0; i < state.length; i++){//prizes when its not triples
 		
@@ -155,7 +164,7 @@ function calculatePrize(bet, state, pd){
                 modifier += 0.3;
                 break;
 			default: // shouldn't happen, but if it does then we know there's something wrong
-				prize = -500;
+				prize = -444.4444444444;
 				break;
         }
     }
@@ -164,4 +173,40 @@ function calculatePrize(bet, state, pd){
 	//console.log('---------');
 	
     return Math.ceil(prize * modifier);
+}
+
+let deviousRat = (message, pd) => {
+	//   is a 1em space
+	let spaces = "    ";
+	
+	// edit the message 
+	let wait = (msg, tmp) => {
+		setTimeout(() => {
+			msg.edit(":coin:" + tmp + ":rat:");
+		}, 10);
+	};
+	
+	message.channel.send(":skull: __**TRIPLE SKULLS**__ :skull:");
+	message.channel.send(
+		":coin:" + spaces + ":rat:"
+	).then((msg) => {
+		for(let i = 1; i < spaces.length; i++) {
+			let numSpaces = spaces.length - i;
+			let tempSpaces = spaces.slice(0, numSpaces);
+			wait(msg, tempSpaces);
+		}
+		
+		// give the rat half a second to think about his actions
+		setTimeout(() => {
+			msg.edit(":smiling_imp: :rat:");
+			
+			// give the user some time to process what happened
+			setTimeout(() => {
+				return msg.channel.send(
+					"Oh no! A devious little rat creature has taken half of your **$RAT**!\n" +
+					"Your balance is now: **" + pd.rat + " $RAT**."
+				);
+			}, 500);
+		}, 500);
+	});
 }

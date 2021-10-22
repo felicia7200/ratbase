@@ -106,3 +106,4 @@ dist
 #dotenv
 .env
 token.txt
+.commands/test.js
