@@ -177,36 +177,20 @@ function calculatePrize(bet, state, pd){
 
 let deviousRat = (message, pd) => {
 	//   is a 1em space
-	let spaces = "    ";
-	
-	// edit the message 
-	let wait = (msg, tmp) => {
-		setTimeout(() => {
-			msg.edit(":coin:" + tmp + ":rat:");
-		}, 10);
-	};
-	
 	message.channel.send(":skull: __**TRIPLE SKULLS**__ :skull:");
-	message.channel.send(
-		":coin:" + spaces + ":rat:"
-	).then((msg) => {
-		for(let i = 1; i < spaces.length; i++) {
-			let numSpaces = spaces.length - i;
-			let tempSpaces = spaces.slice(0, numSpaces);
-			wait(msg, tempSpaces);
-		}
-		
-		// give the rat half a second to think about his actions
-		setTimeout(() => {
-			msg.edit(":smiling_imp: :rat:");
-			
-			// give the user some time to process what happened
+	message.channel.send(":coin: :rat:")
+		.then((msg) => {
+			// give the rat half a second to think about his actions
 			setTimeout(() => {
-				return msg.channel.send(
-					"Oh no! A devious little rat creature has taken half of your **$RAT**!\n" +
-					"Your balance is now: **" + pd.rat + " $RAT**."
-				);
+				msg.edit(":smiling_imp: :rat:");
+				
+				// give the user some time to process what happened
+				setTimeout(() => {
+					return msg.channel.send(
+						"Oh no! A devious little rat creature has taken half of your **$RAT**!\n" +
+						"Your balance is now: **" + pd.rat + " $RAT**."
+					);
+				}, 500);
 			}, 500);
-		}, 500);
-	});
+		});
 }
