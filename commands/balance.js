@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'balance',
-	alisases: ['bal', 'wallet', 'wal'],
 	description: 'Checks the current $RAT wallet.',
+	aliases: ['bal', 'wallet', 'wal'],
 	execute(message, args, profileData){
 		if(!profileData)
 			return message.channel.send("You do not have an account with RATBASE:tm:.");

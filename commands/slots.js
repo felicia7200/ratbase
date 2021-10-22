@@ -2,8 +2,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'slots',
-	alisases: ['s', 'slot'],
 	description: 'Use a totally fake slot machine.',
+	aliases: ['s', 'slot'],
     cooldown: 10,
 	execute(message, args, profileData){
 		const betAmount = (+args[0] > 0) ? +args[0] : 25;

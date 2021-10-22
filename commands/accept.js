@@ -3,6 +3,7 @@ const tradeModel = require('../models/tradeSchema.js');
 
 module.exports = {
 	name: 'accept',
+	aliases: [],
 	description: 'Accepts trades initiated by $$trade.',
 	async execute(message, args, profileData) {
 		const tradeID = args[0];

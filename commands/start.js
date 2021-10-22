@@ -4,6 +4,7 @@ let randomInt = (min, max) => { return Math.floor(Math.random() * max) + min; };
 module.exports = {
 	name: 'start',
 	description: 'Starts a RATBASE:tm: account with a random number of RATCOINS',
+	aliases: [],
 	execute(message, args, profileData){
 		// handle profile data creation
 		if(!profileData) {

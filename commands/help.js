@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'help',
-	aliases: ['?'],
 	description: 'Answers RATBASE:tm: questions',
+	aliases: ['?'],
 	execute(message){
 		return message.channel.send(
 			"**WELCOME TO RATBASE:tm:!**\n\n" + 

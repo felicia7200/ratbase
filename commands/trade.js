@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 module.exports = {
 	name: 'trade',
 	description: 'Trade $RAT with other users.',
+	aliases: [],
 	cooldown: 120,
 	async execute(message, args, profileData){
 		const otherID = (message.mentions.users.first()) ? message.mentions.users.first().id : -1;

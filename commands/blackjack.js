@@ -14,8 +14,8 @@ let shuffle = (deck) => {
 
 module.exports = {
 	name: 'blackjack',
-	aliases: ['bj', 'blackj', 'bjack', '21'],
 	description: 'Play a game of Blackjack and lose all of your $RAT.',
+	aliases: ['bj', 'blackj', 'bjack', '21'],
 	cooldown: 10,
 	async execute(message, args, profileData){
 		const gameName = "blackjack";

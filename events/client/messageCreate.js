@@ -24,7 +24,7 @@ module.exports = {
 			.trim()
 			.split(/ +/g);
 		const cmd = args.shift().toLowerCase();
-		const command = client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+		const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd));
 		
 		// check for cooldown and apply that if necessary
 		if(command && command.cooldown && !args.includes("help") && args.length != 0) {

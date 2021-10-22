@@ -3,9 +3,9 @@ const profileModel = require('../models/profileSchema.js');
 
 module.exports = {
 	name: 'leaderboard',
-	alisases: ['scoreboard', 'leader', 'scores', 'lboard', 'sboard'],
-	cooldown: 30,
 	description: 'Posts the top 5 highest $RAT hodlers.',
+	aliases: ['scoreboard', 'leader', 'scores', 'lboard', 'sboard'],
+	cooldown: 30,
 	execute(message, args){
 		profileModel.find({}).sort({ rat: -1 }).exec((err, docs) => {			
 			const embed = new MessageEmbed()

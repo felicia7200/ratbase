@@ -19,6 +19,7 @@ const client = new Discord.Client({
 });
 
 client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection();
 client.events = new Discord.Collection();
 
 ['cmd_handler', 'ev_handler'].forEach((handler) => {
