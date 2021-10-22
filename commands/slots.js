@@ -14,7 +14,7 @@ module.exports = {
         if(profileData.rat < betAmount)
 			return message.channel.send("Your **$RAT** balance is not high enough to play slots");
         
-        
+        profileData.rat -= betAmount;
         let slotState = [5,5,5];
         // inside a command, event listener, etc.
         const e = new MessageEmbed()
@@ -43,7 +43,9 @@ module.exports = {
 				let prize = calculatePrize(betAmount, slotState);
                 //calculate prize
                 message.channel.send("You win **"+prize+" $RAT**!!!");
+                profileData.rat += prize;
 			}, 1250);
+            profileData.save();
 		}, 100);
         //uncomment to get max, min, mean slots prizes for the bet you put in
         //calculatePrizeStats(betAmount);
