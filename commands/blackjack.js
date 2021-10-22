@@ -29,7 +29,8 @@ module.exports = {
 				"Use this command to gamble $RAT on a game of Blackjack.\n" +
 				"If you win, you get 2x your original bet. If you get 21, " +
 				"then you win 3x your original bet.\n" +
-				"Syntax: **$$blackjack [amount to gamble]**"
+				"Syntax: **$$blackjack [amount to gamble]**" +
+				"Aliases: bj, blackj, bjack, 21"
 			);
 		}
 		

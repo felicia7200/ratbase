@@ -17,7 +17,8 @@ module.exports = {
 		if(args[0] === "?" || args[0] === "help") {
 			return message.channel.send(
 				"Use this command to gamble **$$RAT** on a slot machine.\n" +
-				"Syntax: **$$slots [amount to gamble]**\n\n" + 
+				"Syntax: **$$slots [amount to gamble]**\n" + 
+				"Aliases: s, slot\n\n" + 
 				"If you do not specify an amount, it will assume **25 $RAT**."
 			);
 		}
