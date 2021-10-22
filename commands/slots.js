@@ -30,7 +30,7 @@ module.exports = {
         const e = new MessageEmbed()
             .setColor(message.member.displayHexColor)
             .setTitle(message.member.displayName + ' is playing slots!')
-            .setDescription(''+slotStateToString(slotState));
+            .setDescription('' + slotStateToString(slotState));
 
 		message.channel.send("Betting **" + betAmount + " $RAT** on the slots...");
 
@@ -49,7 +49,7 @@ module.exports = {
 				}              
             });
 			setTimeout(() => {
-				const prize = calculatePrize(betAmount, slotState);
+				const prize = calculatePrize(betAmount, slotState, profileData);
                 profileData.rat += prize;
                 profileData.save();
 				
@@ -113,34 +113,53 @@ function calculatePrizeStats(bet){
     console.log("mean: "+mean);
 }
 
-function calculatePrize(bet, state){
+function calculatePrize(bet, state, pd){
+	const betAmt = bet;
     let prize = bet;
     let modifier = 1;
-    if(state[0] == state[1] == state[2]){//triples pay out good
-        modifier = state[0]; 
+	
+	// if triple, big modifier
+    if((state[0] == state[1]) && (state[1] == state[2])){
+        modifier = (state[0] != 1) ? state[0] : 1.5; 
         return prize * modifier;
     }
-    for(let i = 0; i < 3; i++){//prizes when its not triples
-        switch (state[i]){
+    for(let i = 0; i < state.length; i++){//prizes when its not triples
+		
+		// break out of loop if skull is rolled
+        if(state[i] == 0) {
+			// skull debug
+			//console.log(`${pd.user} has SKULL at pos ${i}`);
+			prize = 0;
+			break;
+		}
+		
+		switch (state[i]){
             case 0: //skull
-                return 0;
+                prize = 0;
                 break;
             case 1: //lemon
-                prize -= 5;
+                prize -= betAmt * 0.04;
                 break;
             case 2: //cherries
-                prize -= 1;
+                prize -= betAmt * 0.02;
                 break;
             case 3: //cheese
-                prize += 1;
+                prize += betAmt * 0.14;
                 break;
             case 4://crown
-                prize += 5;
+                prize += betAmt * 0.26;
                 break;
             case 5: //rat
-                modifier += 0.2;
+                modifier += 0.3;
                 break;
+			default: // shouldn't happen, but if it does then we know there's something wrong
+				prize = -500;
+				break;
         }
     }
-    return prize * modifier;
+	
+	// again for skull debug
+	//console.log('---------');
+	
+    return Math.ceil(prize * modifier);
 }
