@@ -1,7 +1,6 @@
 // Require the necessary discord.js classes
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
-const fs = require('fs');
 
 // require dotenv if not production build
 const dotenv = (process.env.NODE_ENV !== 'prod') ? require('dotenv') : null;

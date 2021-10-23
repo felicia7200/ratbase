@@ -20,13 +20,13 @@ module.exports = {
 			);
 		}
 		
-        if(!args[1]){
-            message.channel.send(
+		if(!args[1]){
+			message.channel.send(
 				"Default bet is heads, since you didn't pick."
 			);
-            args[1] = "heads";
-        }
-        
+			args[1] = "heads";
+		}
+		
 		if(args.length > 2 || args.length < 2) {
 			return message.channel.send(
 				"Incorrect number of arguments. If you need help, please use **$$flip help**."

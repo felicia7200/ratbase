@@ -8,4 +8,4 @@ const profileSchema = new mongoose.Schema({
 	bank: { type: Number }
 });
 
-module.exports = model = mongoose.model("Profile", profileSchema);;
+module.exports = mongoose.model("Profile", profileSchema);;

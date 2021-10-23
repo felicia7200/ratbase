@@ -67,6 +67,8 @@ module.exports = {
 			}
 			
 			let tradeID = mongoose.Types.ObjectId();
+			
+			// eslint-disable-next-line no-unused-vars
 			let trade = tradeModel.create({
 				_id: tradeID,
 				user1: profileData.userID,

@@ -6,7 +6,7 @@ module.exports = {
 	description: 'Posts the top 5 highest $RAT hodlers.',
 	aliases: ['scoreboard', 'leader', 'scores', 'lboard', 'sboard'],
 	cooldown: 30,
-	execute(message, args){
+	execute(message){
 		profileModel.find({}).sort({ rat: -1 }).exec((err, docs) => {			
 			const embed = new MessageEmbed()
 				.setColor('#0052FE')

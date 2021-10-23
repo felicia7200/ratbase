@@ -13,4 +13,4 @@ const tradeSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = model = mongoose.model("Trade", tradeSchema);;
+module.exports = mongoose.model("Trade", tradeSchema);;

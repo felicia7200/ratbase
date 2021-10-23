@@ -10,6 +10,7 @@ module.exports = {
 		if(!profileData) {
 			const baseRat = randomInt(10, 1000);
 			
+			// eslint-disable-next-line no-unused-vars
 			let profile = profileModel.create({
 				user: message.author.username + "#" + message.author.discriminator,
 				userID: message.author.id,

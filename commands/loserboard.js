@@ -6,7 +6,7 @@ module.exports = {
 	description: 'Posts the top 3 worst $RAT hodlers.',
 	aliases: ['losers', 'loser'],
 	cooldown: 30,
-	execute(message, args){
+	execute(message){
 		profileModel.find({}).sort({ rat: 1 }).exec((err, docs) => {
 			const embed = new MessageEmbed()
 				.setColor('#0052FE')
@@ -16,7 +16,7 @@ module.exports = {
 					{ name: `1. ${docs[0].user.split('#')[0]}`, value: `${docs[0].rat} $RAT` },
 					{ name: `2. ${docs[1].user.split('#')[0]}`, value: `${docs[1].rat} $RAT` },
 					{ name: `3. ${docs[2].user.split('#')[0]}`, value: `${docs[2].rat} $RAT` }
-				);                                         
+				);										   
 			return message.channel.send({ embeds: [embed] });
 		});
 	}
