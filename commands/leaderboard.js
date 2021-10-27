@@ -7,7 +7,7 @@ module.exports = {
 	aliases: ['scoreboard', 'leader', 'scores', 'lboard', 'sboard'],
 	cooldown: 30,
 	execute(message){
-		profileModel.find({}).sort({ rat: -1 }).exec((err, docs) => {			
+		profileModel.find({}).sort({ rat: -1 }).exec((err, docs) => {
 			const embed = new MessageEmbed()
 				.setColor('#0052FE')
 				.setTitle('Top 5 $RAT Hodlers')
