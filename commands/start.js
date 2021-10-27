@@ -9,8 +9,13 @@ module.exports = {
 		// handle profile data creation
 		if(!profileData) {
 			profileModel.find({}).sort({ rat: 1 }).exec((err, docs) => {
-				const low = (docs && docs.length > 1 && docs[0].rat > 10) ? Math.floor(docs[0].rat) : 10;
-				const high = (docs && docs.length > 1 && docs[docs.length - 1] > 1000) ? Math.floor(docs[docs.length - 1].rat * .75) : 1000;
+				const defaultLow = 10;
+				const defaultHigh = 1000;
+				const highMulti = .5;
+				
+				const low = (docs && docs.length > 1 && docs[0].rat > defaultLow) ? Math.floor(docs[0].rat) : defaultLow;
+				const high = (docs && docs.length > 1 && (docs[docs.length - 1] * highMulti) > defaultHigh) ? Math.floor(docs[docs.length - 1].rat * highMulti) : defaultHigh;
+				
 				const baseRat = randomInt(low, high + 1);
 				
 				// eslint-disable-next-line no-unused-vars
@@ -23,7 +28,7 @@ module.exports = {
 				});
 				
 				return message.channel.send(
-					"You now have a RATBASE:tm: account! Your current balance is: " + baseRat
+					"You now have a RATBASE:tm: account! Your current balance is: **" + baseRat + " $RAT**."
 				);
 			});
 		} else {
