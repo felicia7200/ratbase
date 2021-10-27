@@ -12,7 +12,7 @@ module.exports = {
 		// acceptPhrase = exact args needed for command to work
 		
 		const winChance = 7;
-		const winMultiplier = 4;
+		const winMultiplier = 6;
 		const acceptPhrase = "I am ready to lose my $RAT";
 		let acceptArr = acceptPhrase.split(' ');
 		
@@ -87,18 +87,22 @@ module.exports = {
 								message.channel.send(`${docs[1].user.split('#')[0]} is recieving ${toDistribute * 2} **$RAT** in redistributed wealth!`);
 								docs[1].rat += toDistribute * 2;
 								docs[1].save();
+								
 								if(docs[0].userID === profileData.userID) redistributed = true;
 							}
 							if(docs[2]){
 								message.channel.send(`${docs[2].user.split('#')[0]} is recieving ${toDistribute * 1} **$RAT** in redistributed wealth!`);
 								docs[2].rat += toDistribute * 1;
 								docs[2].save();
+								
 								if(docs[0].userID === profileData.userID) redistributed = true;
 							} 
 
 						});
 						setTimeout(() => {
+							console.log(redistributed);
 							profileData.rat = (redistributed) ? profileData.rat : 1;
+							console.log(profileData.rat);
 							profileData.save();
 						},250);
 					},250);
