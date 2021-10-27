@@ -74,39 +74,29 @@ module.exports = {
 					setTimeout(() => {
 						let redistributed = false;
 						let redistributeAmt = 0;
-						let toDistribute = Math.floor(profileData.rat / 6);
+						const toDistribute = Math.floor(profileData.rat / 6);
+						const distributeAmts = [
+							toDistribute * 3,
+							toDistribute * 2,
+							toDistribute,
+						];
 						
 						profileModel.find({}).sort({ rat: 1 }).exec((err, docs) => {
-							if(docs[0]){
-								message.channel.send(`${docs[0].user.split('#')[0]} is recieving ${toDistribute * 3} **$RAT** in redistributed wealth!`);
-								docs[0].rat += toDistribute * 3;
-								docs[0].save();
+							for(let i = 0; i < distributeAmts.length; i++) {
+								docs[i].rat += distributeAmts[i];
+								docs[i].save();
 								
-								if(docs[0].userID === profileData.userID) {
+								if(docs[i].userID === profileData.userID) {
 									redistributed = true;
-									redistributeAmt = toDistribute * 3;
+									redistributeAmt = distributeAmts[i];
 								}
 							}
-							if(docs[1]){
-								message.channel.send(`${docs[1].user.split('#')[0]} is recieving ${toDistribute * 2} **$RAT** in redistributed wealth!`);
-								docs[1].rat += toDistribute * 2;
-								docs[1].save();
-								
-								if(docs[1].userID === profileData.userID) {
-									redistributed = true;
-									redistributeAmt = toDistribute * 2;
-								}
-							}
-							if(docs[2]){
-								message.channel.send(`${docs[2].user.split('#')[0]} is recieving ${toDistribute * 1} **$RAT** in redistributed wealth!`);
-								docs[2].rat += toDistribute * 1;
-								docs[2].save();
-								
-								if(docs[2].userID === profileData.userID) {
-									redistributed = true;
-									redistributeAmt = toDistribute * 1;
-								}
-							} 
+							
+							message.channel.send(
+								`${docs[0].user.split('#')[0]} is recieving ${distributeAmts[0]} **$RAT** in redistributed wealth!\n` +
+								`${docs[1].user.split('#')[0]} is recieving ${distributeAmts[1]} **$RAT** in redistributed wealth!\n` +
+								`${docs[2].user.split('#')[0]} is recieving ${distributeAmts[2]} **$RAT** in redistributed wealth!`
+							);
 
 						});
 						setTimeout(() => {
