@@ -11,10 +11,29 @@ module.exports = {
 			profileModel.find({}).sort({ rat: 1 }).exec((err, docs) => {
 				const defaultLow = 10;
 				const defaultHigh = 1000;
-				const highMulti = .5;
 				
-				const low = (docs && docs.length > 1 && docs[0].rat > defaultLow) ? Math.floor(docs[0].rat) : defaultLow;
-				const high = (docs && docs.length > 1 && (docs[docs.length - 1] * highMulti) > defaultHigh) ? Math.floor(docs[docs.length - 1].rat * highMulti) : defaultHigh;
+				let lowAvg = -1, totAvg = -1;
+				
+				// get averages if docs exists
+				if(docs) {
+					const lowAvgAmt = 3;
+					lowAvg = 0;
+					totAvg = 0;
+					
+					for(let i = 0; i < docs.length; i++) {
+						totAvg += docs[i].rat;
+						
+						if(i < lowAvgAmt) {
+							lowAvg += docs[i].rat;
+						}
+					}
+					
+					totAvg /= docs.length;
+					lowAvg /= lowAvgAmt;
+				}
+				
+				const low = (lowAvg > 0 && lowAvg > defaultLow) ? Math.floor(lowAvg) : defaultLow;
+				const high = (totAvg > 0 && totAvg > defaultHigh) ? Math.floor(totAvg) : defaultLow;
 				
 				const baseRat = randomInt(low, high + 1);
 				
