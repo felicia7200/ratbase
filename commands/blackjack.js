@@ -1,4 +1,5 @@
 const deckModel = require('../models/deckSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 // shuffle func modified from https://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
 let shuffle = (deck) => {

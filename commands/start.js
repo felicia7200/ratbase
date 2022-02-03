@@ -1,5 +1,6 @@
 const profileModel = require('../models/profileSchema.js');
-let randomInt = (min, max) => { return Math.floor(Math.random() * max) + min; };
+const randomInt = require('../helper/randomInt.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'start',
@@ -15,7 +16,7 @@ module.exports = {
 				let lowAvg = -1, totAvg = -1;
 				
 				// get averages if docs exists
-				if(docs) {
+				if(docs && docs.length >= 5) {
 					const lowAvgAmt = 3;
 					lowAvg = 0;
 					totAvg = 0;
@@ -47,7 +48,7 @@ module.exports = {
 				});
 				
 				return message.channel.send(
-					"You now have a RATBASE:tm: account! Your current balance is: **" + baseRat + " $RAT**."
+					"You now have a RATBASE:tm: account! Your current balance is: **" + formatRat(baseRat) + " $RAT**."
 				);
 			});
 		} else {

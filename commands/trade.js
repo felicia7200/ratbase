@@ -1,6 +1,7 @@
 const profileModel = require('../models/profileSchema.js');
 const tradeModel = require('../models/tradeSchema.js');
 const mongoose = require('mongoose');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'trade',
@@ -80,12 +81,12 @@ module.exports = {
 			});
 			
 			message.author.client.users.cache.get(otherID).send(
-				"You have been offered: **" + args[1] + " $RAT** in exchange for **" + 
-				args[2] + " $RAT** by " + profileData.user + ".\n" + 
+				"You have been offered: **" + formatRat(args[1]) + " $RAT** in exchange for **" + 
+				formatRat(args[2]) + " $RAT** by " + profileData.user + ".\n" + 
 				"This would bring your balance to: **" + 
-				(+otherData.rat - +args[2] + +args[1]) + 
+				formatRat((+otherData.rat - +args[2] + +args[1])) + 
 				" $RAT**, while bringing " + profileData.user + 
-				"'s balance to: **" + (+profileData.rat - +args[1] + +args[2]) + 
+				"'s balance to: **" + formatRat((+profileData.rat - +args[1] + +args[2])) + 
 				" $RAT**.\n" + "This offer expires in **3 minutes.**\n" + 
 				"To accept this trade, respond with **" +
 				"$$accept " + tradeID + "** in the server.\n" +

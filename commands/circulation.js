@@ -1,4 +1,5 @@
 const profileModel = require('../models/profileSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'circulation',
@@ -15,11 +16,11 @@ module.exports = {
 			
 			if(args[0] === "avg")
 				return message.channel.send(
-					"Average $RAT: " + Math.floor(total / docs.length) * 1.10
+					"Average $RAT: " + formatRat(Math.floor(total / docs.length) * 1.10)
 				);
 			
 			return message.channel.send(
-				"There is currently **" + total + " $RAT** in circulation."
+				"There is currently **" + formatRat(total) + " $RAT** in circulation."
 			);
 		});
 	}

@@ -4,8 +4,7 @@ const profileSchema = new mongoose.Schema({
 	user: { type: String, require: true, unique: true },
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
-	rat: { type: Number, default: 0 },
-	bank: { type: Number }
+	rat: { type: Number, default: 0 }
 });
 
-module.exports = mongoose.model("Profile", profileSchema);;
+module.exports = mongoose.model("Profile", profileSchema);

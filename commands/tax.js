@@ -1,4 +1,5 @@
 const profileModel = require('../models/profileSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'tax',
@@ -6,7 +7,7 @@ module.exports = {
 	aliases: [],
 	cooldown: 3600,
 	execute(message, args, profileData){
-		const tax = 5;
+		let tax;
 	
 		if(!profileData)
 			return message.channel.send("You do not have an account with RATBASE:tm:.");
@@ -15,6 +16,8 @@ module.exports = {
 			if(docs[0].userID === profileData.userID) {
 				return message.channel.send("You are the richest **$RAT** hodler. You cannot tax yourself.");
 			}
+            
+            tax = Math.floor(docs[0].rat * 0.01);
 			
 			docs[0].rat -= tax;
 			profileData.rat += tax;
@@ -25,8 +28,8 @@ module.exports = {
 			return message.channel.send(
 				"You have taxed **" + tax + " $RAT** from **" +
 				docs[0].user + "**.\n" +
-				docs[0].user + " now has a balance of **" + docs[0].rat + " $RAT**.\n" +
-				profileData.user + " now has a balance of **" + profileData.rat + " $RAT**."
+				docs[0].user + " now has a balance of **" + formatRat(docs[0].rat) + " $RAT**.\n" +
+				profileData.user + " now has a balance of **" + formatRat(profileData.rat) + " $RAT**."
 			);
 		});
 	}

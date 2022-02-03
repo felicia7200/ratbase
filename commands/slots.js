@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'slots',
@@ -34,7 +35,7 @@ module.exports = {
 			.setTitle(message.member.displayName + ' is playing slots!')
 			.setDescription('' + slotStateToString(slotState));
 
-		message.channel.send("Betting **" + betAmount + " $RAT** on the slots...");
+		message.channel.send("Betting **" + formatRat(betAmount) + " $RAT** on the slots...");
 
 		// make them wait for it lol
 		setTimeout(() => {
@@ -59,8 +60,8 @@ module.exports = {
 				
 				if(prize >= 0) {
 					return message.channel.send(
-						"You win **" + prize + " $RAT**!\n" + 
-						"Your new balance is **" + profileData.rat + " $RAT**!"
+						"You win **" + formatRat(prize) + " $RAT**!\n" + 
+						"Your new balance is **" + formatRat(profileData.rat) + " $RAT**!"
 					);
 				} else {
 					deviousRat(message, profileData);
@@ -198,7 +199,7 @@ let deviousRat = (message, pd) => {
 				setTimeout(() => {
 					return msg.channel.send(
 						"Oh no! A devious little rat creature has taken half of your **$RAT**!\n" +
-						"Your balance is now: **" + pd.rat + " $RAT**."
+						"Your balance is now: **" + formatRat(pd.rat) + " $RAT**."
 					);
 				}, 500);
 			}, 500);

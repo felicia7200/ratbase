@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const profileModel = require('../models/profileSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'loserboard',
@@ -20,14 +21,14 @@ module.exports = {
 			if(docs.length >= 3) {
 				embed.setTitle('Worst 3 $RAT Hodlers')
 					.addFields(
-						{ name: `1. ${docs[0].user.split('#')[0]}`, value: `${docs[0].rat} $RAT` },
-						{ name: `2. ${docs[1].user.split('#')[0]}`, value: `${docs[1].rat} $RAT` },
-						{ name: `3. ${docs[2].user.split('#')[0]}`, value: `${docs[2].rat} $RAT` }
+						{ name: `1. ${docs[0].user.split('#')[0]}`, value: `${formatRat(docs[0].rat)} $RAT` },
+						{ name: `2. ${docs[1].user.split('#')[0]}`, value: `${formatRat(docs[1].rat)} $RAT` },
+						{ name: `3. ${docs[2].user.split('#')[0]}`, value: `${formatRat(docs[2].rat)} $RAT` }
 					);
 			} else {
 				embed.setTitle(`Worst ${docs.length} $RAT Hodlers`);
 				for(let i = 0; i < docs.length; i++) {
-					embed.addField(`${i + 1}. ${docs[i].user.split('#')[0]}`, `${docs[0].rat} $RAT`);
+					embed.addField(`${i + 1}. ${docs[i].user.split('#')[0]}`, `${formatRat(docs[0].rat)} $RAT`);
 				}
 			}
 				

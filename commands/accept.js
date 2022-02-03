@@ -1,5 +1,6 @@
 const profileModel = require('../models/profileSchema.js');
 const tradeModel = require('../models/tradeSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'accept',
@@ -55,8 +56,8 @@ module.exports = {
 		
 		return message.channel.send(
 			"Trade complete!\n" + 
-			otherData.user + " now has a balance of **" + otherData.rat + " $RAT**.\n" +
-			profileData.user + " now has a balance of **" + profileData.rat + " $RAT**."
+			otherData.user + " now has a balance of **" + formatRat(otherData.rat) + " $RAT**.\n" +
+			profileData.user + " now has a balance of **" + formatRat(profileData.rat) + " $RAT**."
 		);
 	}
 };

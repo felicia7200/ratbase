@@ -42,9 +42,19 @@ module.exports = {
 				const expTime = timestamps.get(message.author.id) + cooldownAmt;
 				
 				if(currTime < expTime) {
-					const timeLeft = (expTime - currTime) / 1000;
-					
-					return message.channel.send(`Please wait ${timeLeft.toFixed(1)} more seconds before using ${command.name} again.`);
+                    // format time in a nicer way if above 60 sec
+					const totalLeft = Math.floor((expTime - currTime) / 1000);
+                    const hLeft = Math.floor(totalLeft / 3600);
+                    const mLeft = Math.floor(totalLeft % 3600 / 60);
+                    const sLeft = Math.floor(totalLeft % 3600 % 60);
+                    
+                    const hDisp = hLeft > 0 ? hLeft + (hLeft == 1 ? " hour, " : " hours, ") : "";
+                    const mDisp = mLeft > 0 ? mLeft + (mLeft == 1 ? " minute, and " : " minutes, and ") : "";
+                    const sDisp = sLeft > 0 ? sLeft + (sLeft == 1 ? " second" : " seconds") : "";
+                    
+                    const msg = `Please wait ${hDisp + mDisp + sDisp} before using ${command.name} again.`;
+                    
+					return message.channel.send(msg);
 				}
 			}
 			

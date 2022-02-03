@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const profileModel = require('../models/profileSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'leaderboard',
@@ -20,16 +21,16 @@ module.exports = {
 			if(docs.length >= 5) {
 				embed.setTitle('Top 5 $RAT Hodlers')
 					.addFields(
-						{ name: `1. ${docs[0].user.split('#')[0]}`, value: `${docs[0].rat} $RAT` },
-						{ name: `2. ${docs[1].user.split('#')[0]}`, value: `${docs[1].rat} $RAT` },
-						{ name: `3. ${docs[2].user.split('#')[0]}`, value: `${docs[2].rat} $RAT` },
-						{ name: `4. ${docs[3].user.split('#')[0]}`, value: `${docs[3].rat} $RAT` },
-						{ name: `5. ${docs[4].user.split('#')[0]}`, value: `${docs[4].rat} $RAT` }
+						{ name: `1. ${docs[0].user.split('#')[0]}`, value: `${formatRat(docs[0].rat)} $RAT` },
+						{ name: `2. ${docs[1].user.split('#')[0]}`, value: `${formatRat(docs[1].rat)} $RAT` },
+						{ name: `3. ${docs[2].user.split('#')[0]}`, value: `${formatRat(docs[2].rat)} $RAT` },
+						{ name: `4. ${docs[3].user.split('#')[0]}`, value: `${formatRat(docs[3].rat)} $RAT` },
+						{ name: `5. ${docs[4].user.split('#')[0]}`, value: `${formatRat(docs[4].rat)} $RAT` }
 					);
 			} else {
 				embed.setTitle(`Top ${docs.length} $RAT Hodlers`);
 				for(let i = 0; i < docs.length; i++) {
-					embed.addField(`${i + 1}. ${docs[i].user.split('#')[0]}`, `${docs[0].rat} $RAT`);
+					embed.addField(`${i + 1}. ${docs[i].user.split('#')[0]}`, `${formatRat(docs[0].rat)} $RAT`);
 				}
 			}
 				

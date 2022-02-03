@@ -22,4 +22,4 @@ const deckSchema = new mongoose.Schema({
 	game: { type: String, require: true, default: null }
 });
 
-module.exports = mongoose.model("Deck", deckSchema);;
+module.exports = mongoose.model("Deck", deckSchema);

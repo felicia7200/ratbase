@@ -1,4 +1,5 @@
-let randomInt = (min, max) => { return Math.floor(Math.random() * max) + min; };
+const randomInt = require('../helper/randomInt.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'flip',
@@ -60,7 +61,7 @@ module.exports = {
 		//}
 		
 		message.channel.send(
-			"Betting **" + args[0] + " $RAT** on **" + args[1].toUpperCase() +
+			"Betting **" + formatRat(args[0]) + " $RAT** on **" + args[1].toUpperCase() +
 			"**."
 		);
 		
@@ -78,8 +79,8 @@ module.exports = {
 					
 					message.channel.send(
 						"**" + args[1].toUpperCase() + "**! You win **" +
-						(+args[0] * 2) + " $RAT**!\nCong**RAT**ulations!\n" + 
-						"Your new balance is **" + (profileData.rat += +args[0]) + " $RAT**!"
+						formatRat((+args[0] * 2)) + " $RAT**!\nCong**RAT**ulations!\n" + 
+						"Your new balance is **" + formatRat((profileData.rat += +args[0])) + " $RAT**!"
 					);
 					
 					
@@ -88,8 +89,8 @@ module.exports = {
 					
 					message.channel.send(
 						"**" + face + "**...\n" +
-						"You lost **" + args[0] + " $RAT**, better luck next time.\n" +
-						"Your new balance is **" + (profileData.rat -= +args[0]) + " $RAT**!"
+						"You lost **" + formatRat(args[0]) + " $RAT**, better luck next time.\n" +
+						"Your new balance is **" + formatRat((profileData.rat -= +args[0])) + " $RAT**!"
 					);
 					
 					

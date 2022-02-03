@@ -1,11 +1,12 @@
 const { MessageEmbed } = require('discord.js');
 const profileModel = require('../models/profileSchema.js');
+const formatRat = require('../helper/formatRat.js');
 
 module.exports = {
 	name: 'yolo',
 	description: 'YOLO all your coin!',
 	aliases: [],
-	cooldown: 10,
+	cooldown: 18000,
 	execute(message, args, profileData){
 		// winChance = 1/x to win
 		// winMultipler = full balance multipled by x for win
@@ -62,7 +63,7 @@ module.exports = {
 					msg.edit({ embeds: [eEdit] }); 
 					
 					// print balance
-					return message.channel.send("Your new balance is: **" + profileData.rat + " $RAT**");
+					return message.channel.send("Your new balance is: **" + formatRat(profileData.rat) + " $RAT**");
 				} else {
 					const eEdit = new MessageEmbed()
 						.setColor(message.member.displayHexColor)
@@ -83,6 +84,8 @@ module.exports = {
 						
 						profileModel.find({}).sort({ rat: 1 }).exec((err, docs) => {
 							for(let i = 0; i < distributeAmts.length; i++) {
+                                if(i == docs.length) break;
+                                
 								docs[i].rat += distributeAmts[i];
 								docs[i].save();
 								
@@ -92,12 +95,13 @@ module.exports = {
 								}
 							}
 							
-							message.channel.send(
-								`${docs[0].user.split('#')[0]} is recieving ${distributeAmts[0]} **$RAT** in redistributed wealth!\n` +
-								`${docs[1].user.split('#')[0]} is recieving ${distributeAmts[1]} **$RAT** in redistributed wealth!\n` +
-								`${docs[2].user.split('#')[0]} is recieving ${distributeAmts[2]} **$RAT** in redistributed wealth!`
-							);
-
+                            if(docs.length > distributeAmts.length) {
+                                message.channel.send(
+                                    `${docs[0].user.split('#')[0]} is recieving ${formatRat(distributeAmts[0])} **$RAT** in redistributed wealth!\n` +
+                                    `${docs[1].user.split('#')[0]} is recieving ${formatRat(distributeAmts[1])} **$RAT** in redistributed wealth!\n` +
+                                    `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!`
+                                );
+                            }
 						});
 						setTimeout(() => {
 							profileData.rat = (redistributed) ? redistributeAmt : 1;
