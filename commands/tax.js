@@ -17,7 +17,7 @@ module.exports = {
 				return message.channel.send("You are the richest **$RAT** hodler. You cannot tax yourself.");
 			}
             
-            tax = Math.floor(docs[0].rat * 0.01);
+            tax = Math.floor(docs[0].rat * 0.005);
 			
 			docs[0].rat -= tax;
 			profileData.rat += tax;
