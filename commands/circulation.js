@@ -16,7 +16,7 @@ module.exports = {
 			
 			if(args[0] === "avg")
 				return message.channel.send(
-					"Average $RAT: " + formatRat(Math.floor(total / docs.length) * 1.10)
+					"The average user is holding **" + formatRat(Math.floor(total / docs.length)) + " $RAT**."
 				);
 			
 			return message.channel.send(
