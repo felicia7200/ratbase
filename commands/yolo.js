@@ -102,7 +102,7 @@ module.exports = {
                                     `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!`
                                 );
                             } else {
-                                let retMsg;
+                                let retMsg = "";
                                 
                                 for(let i = 0; i < docs.length; i++) {
                                     if(i == docs.length - 1) {
