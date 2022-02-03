@@ -30,7 +30,7 @@ module.exports = {
 			} else {
 				embed.setTitle(`Top ${docs.length} $RAT Hodlers`);
 				for(let i = 0; i < docs.length; i++) {
-					embed.addField(`${i + 1}. ${docs[i].user.split('#')[0]}`, `${formatRat(docs[0].rat)} $RAT`);
+					embed.addField(`${i + 1}. ${docs[i].user.split('#')[0]}`, `${formatRat(docs[i].rat)} $RAT`);
 				}
 			}
 				

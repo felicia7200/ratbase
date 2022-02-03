@@ -101,6 +101,18 @@ module.exports = {
                                     `${docs[1].user.split('#')[0]} is recieving ${formatRat(distributeAmts[1])} **$RAT** in redistributed wealth!\n` +
                                     `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!`
                                 );
+                            } else {
+                                let retMsg;
+                                
+                                for(let i = 0; i < docs.length; i++) {
+                                    if(i == docs.length - 1) {
+                                        retMsg += `${docs[i].user.split('#')[0]} is recieving ${formatRat(distributeAmts[i])} **$RAT** in redistributed wealth!`;
+                                    } else {
+                                        retMsg += `${docs[i].user.split('#')[0]} is recieving ${formatRat(distributeAmts[i])} **$RAT** in redistributed wealth!\n`;
+                                    }
+                                }
+                                
+                                message.channel.send(retMsg);
                             }
 						});
 						setTimeout(() => {

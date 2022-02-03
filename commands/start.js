@@ -34,7 +34,7 @@ module.exports = {
 				}
 				
 				const low = (lowAvg > 0 && lowAvg > defaultLow) ? Math.floor(lowAvg) : defaultLow;
-				const high = (totAvg > 0 && totAvg > defaultHigh) ? Math.floor(totAvg) : defaultLow;
+				const high = (totAvg > 0 && totAvg > defaultHigh) ? Math.floor(totAvg) : defaultHigh;
 				
 				const baseRat = randomInt(low, high + 1);
 				
