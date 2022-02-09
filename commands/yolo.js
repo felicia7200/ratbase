@@ -38,8 +38,8 @@ module.exports = {
         
         if(args[0] === "mult" || args[0] === "multiplier") {
             return message.channel.send(
-                "Your current YOLO multiplier is: **" + profileData.yolo + "**.\n" +
-                "If you win the YOLO, you would jump from **" + formatRat(profileData.rat) +
+                "Your current $$yolo multiplier is: **" + profileData.yolo + "**.\n" +
+                "If you win the $$yolo, you would jump from **" + formatRat(profileData.rat) +
                 " $RAT** to **" + formatRat(Math.floor(profileData.rat * profileData.yolo)) +
                 " $RAT**."
             );
@@ -55,11 +55,17 @@ module.exports = {
 		for(let i = 0; i < acceptArr.length; i++){
 			if(acceptArr[i].toLowerCase() !== args[i].toLowerCase()){
 				return message.channel.send(
-				"Incorrect $$yolo arguments, seems like you aren't ready for this kind of risk.\n" +
-				`Try \`$$yolo help\` and come back later.\n`
-			);
+                    "Incorrect $$yolo arguments, seems like you aren't ready for this kind of risk.\n" +
+                    `Try \`$$yolo help\` and come back later.\n`
+                );
 			}
 		}
+        
+        if(profileData.rat < 1) {
+            return message.channel.send(
+                "You have no $RAT in your account. You cannot $$yolo."
+            );
+        }
 		
 		const e = new MessageEmbed()
 			.setColor(message.member.displayHexColor)
