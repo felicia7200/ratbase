@@ -95,6 +95,10 @@ module.exports = {
 						.setTitle(message.member.displayName + ' is putting it all on the line!')
 						.setDescription('AND LOST IT ALL!');
 
+                    profileData.yolo = (profileData.yolo !== 1.5) ? (profileData.yolo - 0.5) : 1.5;
+                    profileData.lastYolo = today;
+                    profileData.save();
+
 					msg.edit({ embeds: [eEdit] });
 					
 					setTimeout(() => {
@@ -124,7 +128,8 @@ module.exports = {
                                 message.channel.send(
                                     `${docs[0].user.split('#')[0]} is recieving ${formatRat(distributeAmts[0])} **$RAT** in redistributed wealth!\n` +
                                     `${docs[1].user.split('#')[0]} is recieving ${formatRat(distributeAmts[1])} **$RAT** in redistributed wealth!\n` +
-                                    `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!`
+                                    `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!\n\n` +
+                                    `${profileData.user.split('#')[0]}'s new $$yolo multiplier is: **${profileData.yolo}**.`
                                 );
                             } else {
                                 let retMsg = "";
@@ -142,12 +147,10 @@ module.exports = {
 						});
 						setTimeout(() => {
 							profileData.rat = (redistributed) ? redistributeAmt : 1;
-                            profileData.yolo = (profileData.yolo !== 1.5) ? (profileData.yolo - 0.5) : 1.5;
-                            profileData.lastYolo = today;
                             profileData.save();
                             
                             message.channel.send(
-                                `${profileData.user.split('#')[0]}'s new YOLO multiplier is: **${profileData.yolo}**.`
+                                `${profileData.user.split('#')[0]}'s new $$yolo multiplier is: **${profileData.yolo}**.`
                             );
 						},250);
 					},250);
