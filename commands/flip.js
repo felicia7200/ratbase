@@ -42,7 +42,7 @@ module.exports = {
 		
 		if(isNaN(+args[0])) {
 			return message.channel.send(
-				"Your bet not a number. Bet is invalid."
+				"Your bet is not a number. Bet is invalid."
 			);
 		}
 		

@@ -1,12 +1,12 @@
 const { MessageEmbed } = require('discord.js');
 const profileModel = require('../models/profileSchema.js');
 const formatRat = require('../helper/formatRat.js');
+const randomInt = require('../helper/randomInt.js');
 
 module.exports = {
 	name: 'yolo',
 	description: 'YOLO all your coin!',
 	aliases: [],
-	cooldown: 18000,
 	execute(message, args, profileData){
 		// winChance = 1/x to win
 		// winMultipler = full balance multipled by x for win
@@ -15,18 +15,35 @@ module.exports = {
 		const winChance = 7;
 		const winMultiplier = 6;
 		const acceptPhrase = "I am ready to lose my $RAT";
+        const today = Math.floor(Date.now() / 86400000);
 		let acceptArr = acceptPhrase.split(' ');
 		
 		if(!profileData)
 			return message.channel.send("You do not have an account with RATBASE:tm:.");
 		
+        // reset yolo to winMulti if new day
+        if(today - profileData.lastYolo >= 1) {
+            profileData.yolo = winMultiplier;
+            profileData.save();
+        }
+        
 		if(args[0] === "?" || args[0] === "help") {
 			return message.channel.send(
 				"Use this command to YOLO **ALL** of your **$$RAT**.\n" +
-				`The odds of winning are 1/${winChance} and if you win your balance will be multiplied by ${winMultiplier}.\n` + 
-				`In order to use the command you must use \n\`$$yolo ${acceptPhrase}\`\n`
+				`The odds of winning are 1/${winChance} and if you win your balance will be multiplied by a maximum of ${winMultiplier}.\n` + 
+				"To see your exact multipler, use the command: $$yolo multipler\n" +
+                `In order to use the command you must use \n\`$$yolo ${acceptPhrase}\`\n`
 			);
 		}
+        
+        if(args[0] === "mult" || args[0] === "multiplier") {
+            return message.channel.send(
+                "Your current YOLO multiplier is: **" + profileData.yolo + "**.\n" +
+                "If you win the YOLO, you would jump from **" + formatRat(profileData.rat) +
+                " $RAT** to **" + formatRat(Math.floor(profileData.rat * profileData.yolo)) +
+                " $RAT**."
+            );
+        }
 		
 		if(args.length != acceptArr.length){
 			return message.channel.send(
@@ -51,14 +68,16 @@ module.exports = {
 		setTimeout(() => {
 			message.channel.send({ embeds: [e] })
 				.then((msg)=> {
-				
+                
 				if(randomInt(0,winChance) == 0){
 					const eEdit = new MessageEmbed()
 						.setColor(message.member.displayHexColor)
 						.setTitle(message.member.displayName + ' is putting it all on the line!')
 						.setDescription('AND IS A WINNER!');
 					
-					profileData.rat *= winMultiplier;
+					profileData.rat = Math.floor(profileData.rat * profileData.yolo);
+                    profileData.yolo = winMultiplier;
+                    profileData.lastYolo = today;
 					profileData.save();
 					msg.edit({ embeds: [eEdit] }); 
 					
@@ -117,7 +136,13 @@ module.exports = {
 						});
 						setTimeout(() => {
 							profileData.rat = (redistributed) ? redistributeAmt : 1;
-							profileData.save();
+                            profileData.yolo = (profileData.yolo !== 1.5) ? (profileData.yolo - 0.5) : 1.5;
+                            profileData.lastYolo = today;
+                            profileData.save();
+                            
+                            message.channel.send(
+                                `${profileData.user.split('#')[0]}'s new YOLO multiplier is: **${profileData.yolo}**.`
+                            );
 						},250);
 					},250);
 					
@@ -126,5 +151,3 @@ module.exports = {
 		}, 500);	   
 	}
 };
-
-let randomInt = (min, max) => { return Math.floor(Math.random() * max) + min; };
