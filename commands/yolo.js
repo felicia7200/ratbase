@@ -36,7 +36,7 @@ module.exports = {
 			);
 		}
         
-        if(args[0] === "mult" || args[0] === "multiplier") {
+        if(args[0] === "mult" || args[0] === "multi" || args[0] === "multiplier") {
             return message.channel.send(
                 "Your current $$yolo multiplier is: **" + profileData.yolo + "**.\n" +
                 "If you win the $$yolo, you would jump from **" + formatRat(profileData.rat) +
@@ -128,7 +128,7 @@ module.exports = {
                                 message.channel.send(
                                     `${docs[0].user.split('#')[0]} is recieving ${formatRat(distributeAmts[0])} **$RAT** in redistributed wealth!\n` +
                                     `${docs[1].user.split('#')[0]} is recieving ${formatRat(distributeAmts[1])} **$RAT** in redistributed wealth!\n` +
-                                    `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!\n\n` +
+                                    `${docs[2].user.split('#')[0]} is recieving ${formatRat(distributeAmts[2])} **$RAT** in redistributed wealth!\n` +
                                     `${profileData.user.split('#')[0]}'s new $$yolo multiplier is: **${profileData.yolo}**.`
                                 );
                             } else {
